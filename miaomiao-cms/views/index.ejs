@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/axios.min.js"></script>
+  </head>
+  <body>
+    <h1>喵喵交友-CMS管理系统</h1>
+    <label for="">
+      上传图片：<input type="file" id="uploadBtn">
+    </label>
+
+    <script>
+      //获取上传控件的对象
+      var uploadBtn = document.getElementById('uploadBtn');
+      uploadBtn.onchange = function(e){
+        var file = e.target.files[0];   //获取上传的文件
+        var param = new FormData();     
+        param.append('file',file);
+
+        var config = {
+          headers : {
+            'Content-Type':'multipart/form-data'  //头部文件类型定义
+          }
+        };
+        //调用后端uploadBannerImg接口,具体定义在routes文件夹下index.js内
+        axios.post('/uploadBannerImg',param,config).then((res)=>{  
+
+          console.log( res.data )
+
+        });
+
+      }
+    </script>
+  </body>
+</html>
